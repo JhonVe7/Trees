@@ -251,6 +251,16 @@ public class BinaryTree {
 			inorder(node.getRight());
 		}
 	}
+	
+	public void levels(BinaryTreeNode node)
+	{
+		if(node != null)
+		{
+			System.out.print (node.toString() + " ");
+			levels(node.getLeft());
+			levels(node.getRight());
+		}
+	}
 
 	public static void main(String[] args) 
 	{

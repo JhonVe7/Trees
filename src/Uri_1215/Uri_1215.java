@@ -26,7 +26,7 @@ public class Uri_1215{
 	}
 	
 	public static void printLettersTree() {
-		bt.inorder(bt.root);
+		bt.preorder(bt.root);
 	}
 	public static void main(String[] args) {
 		
@@ -38,9 +38,19 @@ public class Uri_1215{
 			String input = br.readLine();
 			String text = input.toLowerCase(); 
 			bw.write(text);
-		
+			bw.flush();
 			while (text != null) {
-				readText(text);	
+				
+				readText(text);
+				
+				String[] cases = text.split(" ");
+				
+				 for (int i = 0; i < cases.length; i++) {
+					 bt.insert(new BinaryNodeExample(cases[i]));
+				}
+				for (int i = 0; i < args.length; i++) {
+					
+				}
 				printLettersTree();
 			}
 			

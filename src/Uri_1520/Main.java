@@ -1,71 +1,49 @@
 package Uri_1520;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+
+import LinearDataStructures.ExampleNode;
+import LinearDataStructures.List;
+import Trees.BinaryTree;
+import Uri_1520.BinaryNodeExample;
 
 public class Main {
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+	static List list = new List();
+	static BinaryTree bt = new BinaryTree();
 
-	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		File file = new File("1520.txt");
-		
-		Scanner scanner = new Scanner(file);
-		List<Integer> integers = new ArrayList<>();
-		List<Integer> bt2 = new ArrayList<>();
-		ArrayList<Integer> indices = new ArrayList<>();
-		int counter = 1;
-		while (scanner.hasNext()) {
-			if (scanner.hasNextInt()) {
-				integers.add(scanner.nextInt());
-			} else {
-				scanner.next();
-			}
+	public static void campos(int min, int max) {
+		for (int i = min; i <= max; i++) {
+			list.insertAtBegin(new ExampleNode(i));
+			list.indexOf(new ExampleNode(i));
 		}
-		scanner.close();
-		int testcase = Integer.parseInt(integers.get(0).toString());
-		int postosearch = testcase * 2 + 1;
-		int tosearch = Integer.parseInt(integers.get(testcase * 2 + 1).toString());
+	}
 
-		while (postosearch <= integers.size()) {
+	public static void main(String[] args) {
 
-			for (int i = 0; i < testcase; i++) {
-				for (int j = integers.get(counter); j <= integers.get(counter + 1); j++) {
-					bt2.add(j);
-				}
-				counter = counter + 2;
+		try {
+			int min = 0;
+			int max = 0;
+			String input = "";
+			String numbs[];
+			int cases = Integer.parseInt(br.readLine());
+			for (int i = 0; i < cases; i++) {
+
+				input = br.readLine();
+				numbs = input.split(" ");
+				min = Integer.parseInt(numbs[0]);
+				max = Integer.parseInt(numbs[1]);
+				bt.insert(new BinaryNodeExample(min, max));
+				campos(min, max);
 			}
-
-			Collections.sort(bt2);
-
-			for (int i = 0; i < bt2.size(); i++) {
-				if (bt2.get(i) == tosearch) {
-					indices.add(i);
-				}
-			}
-
-			if (bt2.contains(tosearch)) {
-				bw.write(tosearch + " found from " + indices.get(0) + " to " + indices.get(indices.size() - 1) + "\n");
-				bw.flush();
-			} else {
-				bw.write(tosearch + " not found \n");
-				bw.flush();
-			}
-			indices = new ArrayList<>();
-			bt2 = new ArrayList<>();
-			counter = postosearch + 2;
-			if (counter >= integers.size()) {
-				break;
-			}
-			testcase = Integer.parseInt(integers.get(counter - 1).toString());
-			postosearch = testcase * 2 + postosearch + 2;
-			tosearch = Integer.parseInt(integers.get(postosearch).toString());
+			list.quickSort(list);
+			list.printList();
+		} catch (IOException e) {
 		}
 	}
 
